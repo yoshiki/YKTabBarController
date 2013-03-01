@@ -20,7 +20,8 @@ YKTabBarController uses ARC.
 
 # Usage #
 
-`
+``` objective-c
+
 YKTabBarController *c = [[YKTabBarController alloc] init];
 [c setViewControllers:[NSArray arrayWithObjects:vc0, vc1, nil]];
 
@@ -54,7 +55,7 @@ YKTabBarController *c = [[YKTabBarController alloc] init];
 
 // select first tab
 [c.tabBar setSelectedItem:[c.tabBar itemAtIndex:0]];
-`
+```
 
 # License #
 
