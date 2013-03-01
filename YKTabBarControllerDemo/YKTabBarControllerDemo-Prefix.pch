@@ -1,0 +1,42 @@
+//
+// Prefix header for all source files of the 'YKTabBarControllerDemo' target in the 'YKTabBarControllerDemo' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#define CGRectLog(rect) NSLog(@"%f %f %f %f", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
+#define CGPointLog(point) NSLog(@"%f %f", point.x, point.y)
+#define CGSizeLog(size) NSLog(@"%f %f", size.width, size.height);
+
+#define UIColorFromRGB(rgbValue) [UIColor \
+colorWithRed:((float)((rgbValue & 0xff0000) >> 16))/255.0 \
+green:((float)((rgbValue & 0xff00) >> 8))/255.0 \
+blue:((float)(rgbValue & 0xff))/255.0 alpha:1.0]
+
+#define UIColorFromRGBA(rgbaValue) [UIColor \
+colorWithRed:((float)((rgbaValue & 0xff000000) >> 24))/255.0 \
+green:((float)((rgbaValue & 0xff0000) >> 16))/255.0 \
+blue:((float)((rgbaValue & 0xff00) >> 8))/255.0 \
+alpha:((float)(rgbaValue & 0xff))/255.0]
+
+#define UIColorToRGB(color) [NSString \
+stringWithFormat:@"#%02x%02x%02x", \
+(int)((CGColorGetComponents(color.CGColor))[0]*255.0), \
+(int)((CGColorGetComponents(color.CGColor))[1]*255.0), \
+(int)((CGColorGetComponents(color.CGColor))[2]*255.0)]
+
+#define UIColorToRGBA(color) [NSString \
+stringWithFormat:@"#%02x%02x%02x%02x", \
+(int)((CGColorGetComponents(color.CGColor))[0]*255.0), \
+(int)((CGColorGetComponents(color.CGColor))[1]*255.0), \
+(int)((CGColorGetComponents(color.CGColor))[2]*255.0), \
+(int)((CGColorGetComponents(color.CGColor))[3]*255.0)]
