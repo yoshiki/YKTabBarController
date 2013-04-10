@@ -45,6 +45,7 @@
                                                              CGRectGetHeight(self.view.frame) - kYKTabBarHeight,
                                                              CGRectGetWidth(self.view.frame),
                                                              kYKTabBarHeight)];
+    self.tabBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.tabBar.delegate = self;
     [self.tabBar setItems:items];
     [self.view addSubview:self.tabBar];
