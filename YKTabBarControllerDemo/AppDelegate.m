@@ -19,22 +19,18 @@
     self.window.backgroundColor = [UIColor whiteColor];
 
     SampleViewController *c0 = [[SampleViewController alloc] init];
-    c0.view.backgroundColor = [UIColor grayColor];
     c0.title = @"Page 0";
     UINavigationController *nav0 = [[UINavigationController alloc] initWithRootViewController:c0];
     
     SampleViewController *c1 = [[SampleViewController alloc] init];
-    c1.view.backgroundColor = [UIColor lightGrayColor];
     c1.title = @"Page 1";
     UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:c1];
     
     SampleViewController *c2 = [[SampleViewController alloc] init];
-    c2.view.backgroundColor = [UIColor darkGrayColor];
     c2.title = @"Page 2";
     UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:c2];
     
     SampleViewController *c3 = [[SampleViewController alloc] init];
-    c3.view.backgroundColor = [UIColor whiteColor];
     c3.title = @"Page 3";
     UINavigationController *nav3 = [[UINavigationController alloc] initWithRootViewController:c3];
     

@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) NSArray *viewControllers;
 @property (nonatomic, strong) YKTabBar *tabBar;
+@property (nonatomic, assign) CGFloat tabBarHeight;
+@property (nonatomic, assign) CGFloat tabBarTitleLabelFontSize;
 
 - (UIViewController *)selectedViewController;
 - (void)switchViewController:(UIViewController *)viewController;

@@ -16,14 +16,11 @@
 
 @implementation YKTabBarController
 
-@synthesize viewControllers = _viewControllers;
-@synthesize tabBar = _tabBar;
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.tabBar.selectedItem == nil) {
-        self.tabBar.selectedItem = [self.tabBar.items objectAtIndex:0];
+    if (_tabBar.selectedItem == nil) {
+        _tabBar.selectedItem = [_tabBar.items objectAtIndex:0];
     }
     [self switchViewController:self.selectedViewController];
 }
@@ -35,29 +32,30 @@
 }
 
 - (void)setupTabBar {
-    NSMutableArray *items = [NSMutableArray arrayWithCapacity:[self.viewControllers count]];
-    for (int i = 0; i < [self.viewControllers count]; i++) {
+    NSMutableArray *items = [NSMutableArray arrayWithCapacity:[_viewControllers count]];
+    for (int i = 0; i < [_viewControllers count]; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [items addObject:button];
     }
     
-    self.tabBar = [[YKTabBar alloc] initWithFrame:CGRectMake(0.0f,
-                                                             CGRectGetHeight(self.view.frame) - kYKTabBarHeight,
-                                                             CGRectGetWidth(self.view.frame),
-                                                             kYKTabBarHeight)];
-    self.tabBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.tabBar.delegate = self;
-    [self.tabBar setItems:items];
-    [self.view addSubview:self.tabBar];
+    _tabBar = [[YKTabBar alloc] initWithFrame:CGRectMake(0.0f,
+                                                         CGRectGetHeight(self.view.frame) - self.tabBarHeight,
+                                                         CGRectGetWidth(self.view.frame),
+                                                         self.tabBarHeight)];
+    _tabBar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    _tabBar.titleLabelFontSize = (_tabBarTitleLabelFontSize > 0.0f) ? _tabBarTitleLabelFontSize : kYKTabBarTitleLabelFontSize;
+    _tabBar.delegate = self;
+    [_tabBar setItems:items];
+    [self.view addSubview:_tabBar];
 }
 
 - (NSInteger)selectedIndex {
-    return [self.tabBar.items indexOfObject:self.tabBar.selectedItem];
+    return [_tabBar.items indexOfObject:_tabBar.selectedItem];
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
     if (selectedIndex == self.selectedIndex) return;
-    self.tabBar.selectedItem = [self.tabBar itemAtIndex:selectedIndex];
+    _tabBar.selectedItem = [_tabBar itemAtIndex:selectedIndex];
     [self switchViewController:[self viewControllerAtIndex:self.selectedIndex]];
 }
 
@@ -74,7 +72,7 @@
     
     viewController.view.frame = [self rectForView];
     viewController.view.tag = kYKTabBarControllerSelectedViewTag;
-    [self.view insertSubview:viewController.view belowSubview:self.tabBar];
+    [self.view insertSubview:viewController.view belowSubview:_tabBar];
     [viewController viewWillAppear:NO];
     [viewController viewDidAppear:NO];
     
@@ -83,14 +81,18 @@
 }
 
 - (UIViewController *)viewControllerAtIndex:(NSInteger)index {
-    return [self.viewControllers objectAtIndex:index];
+    return [_viewControllers objectAtIndex:index];
 }
 
 - (CGRect)rectForView {
     return CGRectMake(0.0f,
                       0.0f,
                       CGRectGetWidth(self.view.frame),
-                      CGRectGetHeight(self.view.frame) - kYKTabBarHeight);
+                      CGRectGetHeight(self.view.frame) - self.tabBarHeight);
+}
+
+- (CGFloat)tabBarHeight {
+    return ((_tabBarHeight > 0) ? _tabBarHeight : kYKTabBarHeight);
 }
 
 #pragma mark - YKTabBarDelegate

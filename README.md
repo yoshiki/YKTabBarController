@@ -23,6 +23,7 @@ YKTabBarController uses ARC.
 ``` objective-c
 
 YKTabBarController *c = [[YKTabBarController alloc] init];
+c.tabBarTitleLabelFontSize = 10.0f; // set font size for tab bar title
 [c setViewControllers:[NSArray arrayWithObjects:vc0, vc1, nil]];
 
 // normarl image

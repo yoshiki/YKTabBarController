@@ -22,8 +22,8 @@
 
 - (void)layoutSubviews {
     CGFloat tabBarWidth = CGRectGetWidth(self.frame);
-    CGFloat tabBarItemWidth = tabBarWidth/[self.items count];
-    for (int i = 0; i < [self.items count]; i++) {
+    CGFloat tabBarItemWidth = tabBarWidth/[_items count];
+    for (int i = 0; i < [_items count]; i++) {
         UIButton *button = [self itemAtIndex:i];
         button.frame = CGRectMake(i * tabBarItemWidth, 0.0f, tabBarItemWidth, CGRectGetHeight(self.frame));
 
@@ -45,7 +45,7 @@
     _countOfTap = [NSMutableArray array];
     for (int i = 0; i < [_items count]; i++) {
         UIButton *button = [self itemAtIndex:i];
-        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:10.0f]];
+        [button.titleLabel setFont:[UIFont boldSystemFontOfSize:_titleLabelFontSize]];
         [button.titleLabel setShadowColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.6]];
         [button.titleLabel setShadowOffset:CGSizeMake(0.0f, -1.0f)];
         [button addTarget:self action:@selector(touchDownAction:) forControlEvents:UIControlEventTouchDown];
@@ -60,7 +60,7 @@
 }
 
 - (UIButton *)itemAtIndex:(NSInteger)index {
-    return (UIButton *)[self.items objectAtIndex:index];
+    return (UIButton *)[_items objectAtIndex:index];
 }
 
 - (void)setImage:(UIImage *)image
@@ -98,9 +98,9 @@
 #pragma mark - Private methods
 
 - (NSInteger)countUpTapAtIndex:(NSInteger)index {
-    NSInteger count = [[self.countOfTap objectAtIndex:index] integerValue];
+    NSInteger count = [[_countOfTap objectAtIndex:index] integerValue];
     count++;
-    [self.countOfTap replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:count]];
+    [_countOfTap replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:count]];
     return count;
 }
 
@@ -113,7 +113,7 @@
 }
 
 - (void)dimAllButtonsExcept:(UIButton*)selectedButton {
-    for (UIButton* button in self.items) {
+    for (UIButton* button in _items) {
         if (button == selectedButton) {
             button.selected = YES;
             button.highlighted = button.selected ? NO : YES;
@@ -121,27 +121,27 @@
             button.selected = NO;
             button.highlighted = NO;
 
-            NSInteger index = [self.items indexOfObject:button];
-            [self.countOfTap replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:0]];
+            NSInteger index = [_items indexOfObject:button];
+            [_countOfTap replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:0]];
         }
     }
 }
 
 - (void)touchDownAction:(UIButton*)button {
     [self dimAllButtonsExcept:button];
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(touchDownItemAtIndex:)]) {
-        self.selectedItem = button;
-        [self.delegate touchDownItemAtIndex:[self.items indexOfObject:self.selectedItem]];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(touchDownItemAtIndex:)]) {
+        _selectedItem = button;
+        [_delegate touchDownItemAtIndex:[_items indexOfObject:_selectedItem]];
     }
 }
 
 - (void)touchUpInsideAction:(UIButton*)button {
     [self dimAllButtonsExcept:button];
     
-    NSInteger index = [self.items indexOfObject:button];
+    NSInteger index = [_items indexOfObject:button];
     NSInteger count = [self countUpTapAtIndex:index];
     if (count >= 2) {
-        [self.delegate tapPlurallyAtIndex:index];
+        [_delegate tapPlurallyAtIndex:index];
     }
 }
 

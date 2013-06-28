@@ -10,6 +10,8 @@
 
 @interface SampleViewController ()
 
+@property (strong, nonatomic) UIButton *showNextVCButton;
+
 @end
 
 @implementation SampleViewController
@@ -17,11 +19,20 @@
 - (void)loadView {
     [super loadView];
     
-    UIButton *showNextVCButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [showNextVCButton setTitle:@"Show Next VC" forState:UIControlStateNormal];
-    [showNextVCButton addTarget:self action:@selector(showNextVC:) forControlEvents:UIControlEventTouchUpInside];
-    [showNextVCButton sizeToFit];
-    [self.view addSubview:showNextVCButton];
+    _showNextVCButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [_showNextVCButton setTitle:@"Show Next VC" forState:UIControlStateNormal];
+    [_showNextVCButton addTarget:self action:@selector(showNextVC:) forControlEvents:UIControlEventTouchUpInside];
+    [_showNextVCButton sizeToFit];
+    [self.view addSubview:_showNextVCButton];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    CGRect frame = _showNextVCButton.frame;
+    frame.origin.x = floorf(CGRectGetWidth(self.view.frame)/2 - CGRectGetWidth(_showNextVCButton.frame)/2);
+    frame.origin.y = floorf(CGRectGetHeight(self.view.frame)/2 - CGRectGetHeight(_showNextVCButton.frame)/2);
+    _showNextVCButton.frame = frame;
 }
 
 - (void)showNextVC:(id)sender {
