@@ -27,6 +27,7 @@
 
 - (void)setViewControllers:(NSArray *)viewControllers {
     _viewControllers = viewControllers;
+    [self loadViewControllers];
     self.view.frame = self.view.bounds;
     [self setupTabBar];
 }
@@ -47,6 +48,16 @@
     _tabBar.delegate = self;
     [_tabBar setItems:items];
     [self.view addSubview:_tabBar];
+}
+
+- (void)loadViewControllers {
+    for (UIViewController *vc in _viewControllers) {
+        [vc view];
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            UINavigationController *nav = (UINavigationController *)vc;
+            [nav.topViewController view];
+        }
+    }
 }
 
 - (NSInteger)selectedIndex {
