@@ -20,7 +20,8 @@
 @synthesize items = _items;
 @synthesize selectedItem = _selectedItem;
 
-- (void)layoutSubviews {
+- (void)layoutSubviews
+{
     CGFloat tabBarWidth = CGRectGetWidth(self.frame);
     CGFloat tabBarItemWidth = tabBarWidth/[_items count];
     for (int i = 0; i < [_items count]; i++) {
@@ -38,7 +39,8 @@
 
 #pragma mark - Public methods
 
-- (void)setItems:(NSArray *)items {
+- (void)setItems:(NSArray *)items
+{
     [self removeAllItems];
 
     _items = [[NSArray alloc] initWithArray:items];
@@ -59,52 +61,55 @@
     }
 }
 
-- (UIButton *)itemAtIndex:(NSInteger)index {
+- (UIButton *)itemAtIndex:(NSInteger)index
+{
     return (UIButton *)[_items objectAtIndex:index];
 }
 
 - (void)setImage:(UIImage *)image
          atIndex:(NSInteger)index
-        forState:(UIControlState)state {
-
+        forState:(UIControlState)state
+{
     UIButton *button = [self itemAtIndex:index];
     [button setImage:image forState:state];
 }
 
 - (void)setBackgroundImage:(UIImage *)image
                    atIndex:(NSInteger)index
-                  forState:(UIControlState)state {
-
+                  forState:(UIControlState)state
+{
     UIButton *button = [self itemAtIndex:index];
     [button setBackgroundImage:image forState:state];
 }
 
 - (void)setTitle:(NSString *)title
          atIndex:(NSInteger)index
-        forState:(UIControlState)state {
-
+        forState:(UIControlState)state
+{
     UIButton *button = [self itemAtIndex:index];
     [button setTitle:title forState:state];
 }
 
 - (void)setTitleColor:(UIColor *)color
               atIndex:(NSInteger)index
-             forState:(UIControlState)state {
-    
+             forState:(UIControlState)state
+{
     UIButton *button = [self itemAtIndex:index];
     [button setTitleColor:color forState:state];
 }
 
 #pragma mark - Private methods
 
-- (NSInteger)countUpTapAtIndex:(NSInteger)index {
+- (NSInteger)countUpTapAtIndex:(NSInteger)index
+{
     NSInteger count = [[_countOfTap objectAtIndex:index] integerValue];
     count++;
     [_countOfTap replaceObjectAtIndex:index withObject:[NSNumber numberWithInteger:count]];
     return count;
 }
 
-- (void)removeAllItems {
+- (void)removeAllItems
+{
     for (UIView *view in [self subviews]) {
         [view removeFromSuperview];
     }
@@ -112,7 +117,8 @@
     _countOfTap = nil;
 }
 
-- (void)dimAllButtonsExcept:(UIButton*)selectedButton {
+- (void)dimAllButtonsExcept:(UIButton*)selectedButton
+{
     for (UIButton* button in _items) {
         if (button == selectedButton) {
             button.selected = YES;
@@ -127,7 +133,8 @@
     }
 }
 
-- (void)touchDownAction:(UIButton*)button {
+- (void)touchDownAction:(UIButton*)button
+{
     [self dimAllButtonsExcept:button];
     if (_delegate != nil && [_delegate respondsToSelector:@selector(touchDownItemAtIndex:)]) {
         _selectedItem = button;
@@ -135,7 +142,8 @@
     }
 }
 
-- (void)touchUpInsideAction:(UIButton*)button {
+- (void)touchUpInsideAction:(UIButton*)button
+{
     [self dimAllButtonsExcept:button];
     
     NSInteger index = [_items indexOfObject:button];
@@ -145,11 +153,13 @@
     }
 }
 
-- (void)otherTouchesAction:(UIButton*)button {
+- (void)otherTouchesAction:(UIButton*)button
+{
     [self dimAllButtonsExcept:button];
 }
 
-- (void)setSelectedItem:(UIButton *)selectedItem {
+- (void)setSelectedItem:(UIButton *)selectedItem
+{
     _selectedItem = selectedItem;
     [self dimAllButtonsExcept:selectedItem];
 }

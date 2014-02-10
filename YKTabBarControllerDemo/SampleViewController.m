@@ -16,9 +16,12 @@
 
 @implementation SampleViewController
 
-- (void)loadView {
+- (void)loadView
+{
     [super loadView];
     
+    self.view.backgroundColor = [UIColor whiteColor];
+
     _showNextVCButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [_showNextVCButton setTitle:@"Show Next VC" forState:UIControlStateNormal];
     [_showNextVCButton addTarget:self action:@selector(showNextVC:) forControlEvents:UIControlEventTouchUpInside];
@@ -26,7 +29,8 @@
     [self.view addSubview:_showNextVCButton];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     CGRect frame = _showNextVCButton.frame;
@@ -35,7 +39,8 @@
     _showNextVCButton.frame = frame;
 }
 
-- (void)showNextVC:(id)sender {
+- (void)showNextVC:(id)sender
+{
     SampleViewController *c = [[SampleViewController alloc] init];
     [self.navigationController pushViewController:c animated:YES];
 }
