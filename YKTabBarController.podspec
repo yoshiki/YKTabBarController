@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "Yoshiki Kurihara" => "clouder@gmail.com" }
   s.source       = { :git => "https://github.com/yoshiki/YKTabBarController.git", :tag => "1.0" }
   s.source_files = 'YKTabBarController/*.{h,m}'
-  s.require_arc  = true
+  s.requires_arc = true
   s.license      = {
     :type => 'MIT',
     :text => <<-LICENSE
